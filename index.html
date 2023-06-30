@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🤨🤨🤨</title>
+  <style>
+    body {
+      background-color: pink; /* Updated background color to pink */
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      max-width: 400px;
+      margin: 100px auto;
+      padding: 20px;
+      background-color: #ffffff;
+      border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+      text-align: center;
+      color: #333333;
+    }
+
+    #nameDisplay {
+      text-align: center;
+      font-size: 18px;
+      color: #333333;
+      margin-bottom: 20px;
+    }
+
+    h2 {
+      text-align: center;
+      color: #333333;
+    }
+
+    .button-container {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 20px;
+    }
+
+    button {
+      flex-basis: 48%;
+      padding: 10px;
+      background-color: #33cc33;
+      color: #ffffff;
+      border: none;
+      border-radius: 4px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #C147E9
+    }
+
+    #question {
+      display: none;
+    }
+
+    label {
+      display: block;
+      margin-top: 20px;
+      color: #333333;
+    }
+
+    input[type="text"] {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #cccccc;
+      border-radius: 4px;
+      font-size: 16px;
+      box-sizing: border-box;
+    }
+
+    @media (max-width: 480px) {
+      .container {
+        margin: 50px auto;
+        padding: 10px;
+      }
+
+      h1 {
+        font-size: 24px;
+      }
+
+      #nameDisplay {
+        font-size: 16px;
+      }
+
+      h2 {
+        font-size: 18px;
+      }
+
+      .button-container {
+        flex-wrap: wrap;
+      }
+
+      button {
+        flex-basis: 100%;
+        margin-top: 10px;
+      }
+
+      label {
+        font-size: 14px;
+      }
+
+      input[type="text"] {
+        font-size: 14px;
+      }
+    }
+  </style>
+</head>
+<body onload="displayName()">
+  <div class="container">
+    <h1>Hi crush😊</h1>
+    <div id="nameDisplay"></div>
+    <h2>Do you know me?</h2>
+    <div class="button-container">
+      <button onclick="showQuestion()">Yes</button>
+      <button onclick="nope.html()">No</button>
+    </div>
+    <div id="question">
+      <label for="reason">Why?</label>
+      <input type="text" id="reason" name="reason">
+      <button onclick="sendReason()">Send</button>
+    </div>
+  </div>
+  
+
+  <script>
+    
+
+    function sendReason() {
+      var reason = document.getElementById("reason").value;
+      var name = localStorage.getItem("name");
+
+      var scriptUrl = "https://script.google.com/macros/s/AKfycbzmvi3UN4MCxG8alPhOe6wL6RzKojGKChwoT7lvHKKPwaPwDDvryL9FI12RQJdU6S027Q/exec";
+
+      var xhr = new XMLHttpRequest();
+      xhr.open("POST", scriptUrl, true);
+      xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+
+      xhr.onreadystatechange = function() {
+        if (xhr.readyState === XMLHttpRequest.DONE) {
+          if (xhr.status === 200) {
+            alert("Reason sent!");
+            resetForm();
+          } else {
+            alert("Unexpected error occured please refresh and try again.");
+          }
+        }
+      };
+
+      xhr.send("name=" + encodeURIComponent(name) + "&reason=" + encodeURIComponent(reason));
+    }
+    
+    function redirectToSadPage() {
+      window.location.href = "nope.html";
+    }
+function displayName() {
+      var name = localStorage.getItem("name");
+      document.getElementById("nameDisplay").textContent = "Name: " + name;
+    }
+
+    function showQuestion() {
+      document.getElementById("question").style.display = "block";
+    }
+    function resetForm() {
+      document.getElementById("reason").value = "";
+    }
+    
+    function saveName() {
+      var name = prompt("Please enter your name:");
+      localStorage.setItem("name", name);
+      displayName();
+    }
+    
+    function clearName() {
+      localStorage.removeItem("name");
+      displayName();
+    }
+  </script>
+  
+  <script>
+    // script section 
+
+    // Check if a name is saved and display it
+    function checkName() {
+      var name = localStorage.getItem("name");
+      if (name) {
+        alert("Name: " + name);
+      } else {
+        alert("No name found.");
+      }
+    }
+    
+    // Update the name in local storage
+    function updateName() {
+      var name = localStorage.getItem("name");
+      if (name) {
+        var newName = prompt("Please enter a new name:", name);
+        localStorage.setItem("name", newName);
+        displayName();
+      } else {
+        alert("No name found.");
+      }
+    }
+  </script>
+  
+</body>
+</html>
